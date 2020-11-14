@@ -1,22 +1,26 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
+# Input link apnews [associated press]
+sharelinkgan = input("Masukkan Link AP News:  ")
 
-sharelinkgan = input("AP News Link???? ")
-
+# Masukkan link bentuk html -> parse pakai beautifulsoup
 link = sharelinkgan
 linkhtml = urllib.request.urlopen(link)
 soup = BeautifulSoup(linkhtml,'html.parser')
 
+# Membentuk text
 get = soup.find_all('div',class_='Article')
 txt = get[0].find_all('p')
 eachp = []
 final = []
-for i in range(len(txt)-2):
+for i in range(len(txt)):
     paragraph = txt[i].get_text()
     eachp.append(paragraph)
     final = "\n".join(eachp)
 print(final)
 
-with open("doc1.txt","w") as abc:
-   print(final, file=abc)
+# Write file atau save ke file
+filename = input("Masukkan nama file beserta format: ")
+with open(filename,"w") as write:
+   print(final, file=write)
