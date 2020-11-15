@@ -8,4 +8,6 @@ bowlist = data.get_bow(data.stemmed_file,unique)
 bow_query = data.bow_query(stemmed_query,unique)
 
 sorted_result = data.get_result(bowlist,bow_query)
+
 data.show_result(sorted_result)
+data.show_term(stemmed_query,bow_query,bowlist)

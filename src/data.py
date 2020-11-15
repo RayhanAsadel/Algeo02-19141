@@ -89,16 +89,45 @@ def get_result(bowlist,bow_query):
     return(sorted_result)
 
 def show_result(sorted_result):
+    printed = 0
     for i in range (files_qty):
-        print (sorted_result[i][0])
-        file1 = open('../files/'+sorted_result[i][0])
-        firstline = file1.readline()
-        line = file1.read()
-        words = word_tokenize(line)
-        print("Jumlah kata: {}".format(len(words)))
-        print("Tingkat Kemiripan: {:.2f} %".format(sorted_result[i][1]*100))
-        print(firstline)
+        if sorted_result[i][1] != 0:
+            print (sorted_result[i][0])
+            file1 = open('../files/'+sorted_result[i][0])
+            firstline = file1.readline()
+            line = file1.read()
+            words = word_tokenize(line)
+            print("Jumlah kata: {}".format(len(words)))
+            print("Tingkat Kemiripan: {:.2f} %".format(sorted_result[i][1]*100))
+            print(firstline)
+            printed += 1
+        else:
+            continue
+    if printed == 0:
+        print("Tidak ada dokumen yang sesuai dengan query.")
+        print()
 
+def show_term(stemmed_query,bow_query,bowlist):      
+    term = []
+
+    list_bowquery = []
+    list_bowquery.append(bow_query)
+
+    new_bowlist = list_bowquery + bowlist
+    fileslist_mod = []
+    for i in range(files_qty):
+        
+    new_fileslist = ['Query'] + fileslist
+    M = len(stemmed_query)
+    N = len(new_bowlist)
+    for i in range (M):
+        term.append(dict.fromkeys(new_fileslist,0))
+        for k in range(N):
+            for word in new_bowlist[k]:
+                if word == stemmed_query[i]:
+                    term[i][new_fileslist[k]] = new_bowlist[k][word]
+    termx = pd.DataFrame(term,index=stemmed_query)
+    print(termx)
 
 #fileslist
 current_path = os.getcwd()
