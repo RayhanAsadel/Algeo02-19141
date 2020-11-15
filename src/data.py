@@ -114,20 +114,31 @@ def show_term(stemmed_query,bow_query,bowlist):
     list_bowquery.append(bow_query)
 
     new_bowlist = list_bowquery + bowlist
-    fileslist_mod = []
-    for i in range(files_qty):
-        
     new_fileslist = ['Query'] + fileslist
+
     M = len(stemmed_query)
     N = len(new_bowlist)
+
+    key = [p for p in range(1,N)]
+
     for i in range (M):
-        term.append(dict.fromkeys(new_fileslist,0))
+        term.append(dict.fromkeys(['Query'] + key,0))
         for k in range(N):
             for word in new_bowlist[k]:
                 if word == stemmed_query[i]:
-                    term[i][new_fileslist[k]] = new_bowlist[k][word]
+                    if k==0:
+                        term[i]['Query'] = new_bowlist[k][word]
+                    else:
+                        term[i][k] = new_bowlist[k][word]
     termx = pd.DataFrame(term,index=stemmed_query)
-    print(termx)
+    print(termx.add_prefix('d'))
+    print()
+    print('With:')
+    for i in range (N):
+        if i == 0:
+            print('dQuery : ',new_fileslist[i])
+        else:
+            print('d'+str(i)+' : ',new_fileslist[i])
 
 #fileslist
 current_path = os.getcwd()
