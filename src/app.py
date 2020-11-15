@@ -4,7 +4,7 @@ import os
 import flask
 
 
-UPLOAD_FOLDER = './uploads'
+UPLOAD_FOLDER = './static/text'
 ALLOWED_EXTENSIONS = {'txt'}
 
 app = Flask(__name__)
