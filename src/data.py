@@ -13,6 +13,10 @@ ps = PorterStemmer()
 
 global fileslist
 global stemmed_file
+global text_dir 
+
+
+text_dir = 'static/text/'
 
 def stemstring(line):
     lowercase_line = line.lower()
@@ -30,7 +34,7 @@ def stemstring(line):
 def stemfiles(file):
     stemmed_file = []
     for i in range (files_qty):
-        file1 = open('../files/' + fileslist[i])
+        file1 = open(text_dir + fileslist[i])
         line = file1.read()
         lowercase_line = line.lower()
         tanda_baca = '''`’”“—!()-[]{};:'"\, <>./?@#$%^&*_~'''
@@ -93,7 +97,7 @@ def show_result(sorted_result):
     for i in range (files_qty):
         if sorted_result[i][1] != 0:
             print (sorted_result[i][0])
-            file1 = open('../files/'+sorted_result[i][0])
+            file1 = open(text_dir+sorted_result[i][0])
             firstline = file1.readline()
             line = file1.read()
             words = word_tokenize(line)
@@ -142,7 +146,7 @@ def show_term(stemmed_query,bow_query,bowlist):
 
 #fileslist
 current_path = os.getcwd()
-files_path = os.path.join(current_path,'..','files')
+files_path = os.path.join(current_path,'static','text')
 fileslist = os.listdir(files_path)
 
 #files_qty

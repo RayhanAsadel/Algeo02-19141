@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
 import os
 import flask
+from data import *
 
 
 UPLOAD_FOLDER = './static/text'
@@ -25,6 +26,20 @@ def upload_file():
        f.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
        return render_template('search2uploadsucces.html')
 
+@app.route('/', methods=['GET'])
+@app.route('/search', methods=['GET'])
+def search_page():
+    query = request.args.get('s')
+    unique = get_unique(stemmed_file,stemmed_query)
+
+    stemmed_query = stemstring(query)
+    bow_query = bow_query(stemmed_query,unique)
+    bowlist = get_bow(stemmed_file,unique)
+
+    sorted_result = get_result(bowlist,bow_query)
+
+    return render_template('results.html', sorted_result=sorted_result, stemmed_query=stemmed_query, bow_query=bow_query, bowlist=bowlist)
+    
 @app.route('/about')
 def about_files():
     return render_template('about.html')
