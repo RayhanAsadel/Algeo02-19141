@@ -9,6 +9,9 @@ ALLOWED_EXTENSIONS = {'txt'}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['TEXT_DIR'] = './text'
+
+
 @app.route('/')
 def index():
     return render_template('search2.html')
@@ -26,7 +29,12 @@ def upload_file():
 def about_files():
     return render_template('about.html')
 
-
+@app.route('/text/<txt_name>')
+def return_pdf(txt_name):
+    try:
+        return redirect(url_for('static', filename=app.config['TEXT_DIR'] + secure_filename(txt_name)))
+    except:
+        abort(404)
 
 if __name__ == "__main__":
     app.run(debug=True)
