@@ -1,5 +1,6 @@
 import urllib.request
 from bs4 import BeautifulSoup
+import os
 
 # Input link apnews [associated press]
 sharelinkgan = input("Masukkan Link AP News:  ")
@@ -21,6 +22,7 @@ for i in range(len(txt)):
 print(final)
 
 # Write file atau save ke file
+path = os.getcwd()
 filename = input("Masukkan nama file beserta format: ")
-with open(filename,"w",encoding='utf-8') as write:
+with open(os.path.join(path,'static','text',filename),"w",encoding='utf-8') as write:
    print(final, file=write)
