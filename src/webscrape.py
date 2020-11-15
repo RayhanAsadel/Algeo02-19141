@@ -22,5 +22,5 @@ print(final)
 
 # Write file atau save ke file
 filename = input("Masukkan nama file beserta format: ")
-with open(filename,"w") as write:
+with open(filename,"w",encoding='utf-8') as write:
    print(final, file=write)

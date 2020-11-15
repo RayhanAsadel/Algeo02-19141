@@ -27,6 +27,8 @@ def search_page():
         bowlist = get_bow(stemmed_file,unique)
         bow_query1 = bow_query(stemmed_query,unique)
         sorted_result = get_result(bowlist,bow_query1)
+        show_result(sorted_result,query)
+        show_term(stemmed_query,bow_query,bowlist)
         files_qty1 = files_qty
         #Dapatkan dataframe untuk termtable
         termtable = pd.DataFrame()
@@ -63,13 +65,19 @@ def about_files():
 
 @app.route('/text/<txt_name>')
 def return_txt(txt_name):
-    try:
-        return redirect(url_for('static', filename=app.config['TEXT_DIR'] + secure_filename(txt_name)))
-    except:
-        abort(404)
+    return redirect(url_for('static', filename=app.config['TEXT_DIR'] + secure_filename(txt_name)))
+
 @app.route('/table')
 def print_term_table():
     return render_template('termtable.html')
+
+@app.route('/hasil')
+def print_result():
+    return render_template('hasil.html')
+
+@app.route('/list')
+def print_list():
+    return render_template('list.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

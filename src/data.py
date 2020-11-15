@@ -36,7 +36,7 @@ def stemstring(line):
 def stemfiles(file):
     stemmed_file = []
     for i in range (files_qty):
-        file1 = open(text_dir + fileslist[i])
+        file1 = open(text_dir + fileslist[i],encoding='utf-8')
         line = file1.read()
         lowercase_line = line.lower()
         tanda_baca = '''`’”“—!()-[]{};:'"\, <>./?@#$%^&*_~'''
@@ -94,12 +94,13 @@ def get_result(bowlist,bow_query):
     sorted_result = sorted(result_dict.items(), reverse=True, key=operator.itemgetter(1))
     return(sorted_result)
 
-def show_result(sorted_result):
+def show_result(sorted_result,query):
+    '''
     printed = 0
     for i in range (files_qty):
         if sorted_result[i][1] != 0:
             print (sorted_result[i][0])
-            file1 = open(text_dir+sorted_result[i][0])
+            file1 = open(text_dir+sorted_result[i][0],encoding='utf-8')
             firstline = file1.readline()
             line = file1.read()
             words = word_tokenize(line)
@@ -112,8 +113,40 @@ def show_result(sorted_result):
     if printed == 0:
         print("Tidak ada dokumen yang sesuai dengan query.")
         print()
+    '''
+    printed = 0
+    html = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+    """
+    html += "<p><left><h3> Hasil pencarian " + query + " : </h3></left></p>"
+    for i in range (files_qty):
+        if sorted_result[i][1] != 0:
+            html += "<p><left><a href=/static/text/" + sorted_result[i][0] + "> " + sorted_result[i][0] + " </a></left></p>"
+            file1 = open(text_dir+sorted_result[i][0],encoding='utf-8')
+            firstline = file1.readline()
+            line = file1.read()
+            words = word_tokenize(line)
+            html += "\n"
+            html += "<p><left>Jumlah kata: {}".format(len(words)) + "</left></p>"
+            html += "\n<p><left>Tingkat Kemiripan: {:.2f} %".format(sorted_result[i][1]*100) + "</left></p>"
+            html += "\n<p><left>" + firstline + "</left></p>"
+            printed += 1
+        else:
+            continue
+    if printed == 0:
+        html += "<p><left>Tidak ada dokumen yang sesuai dengan query.</left></p>"
+    html += "</body></html>"
+    with open(os.path.join(current_path,'templates','hasil.html'),"w",encoding='utf-8') as write:
+        write.write(html)
 
-def show_term(stemmed_query,bow_query,bowlist):      
+def show_term(stemmed_query,bow_query,bowlist):    
     term = []
 
     list_bowquery = []
@@ -125,6 +158,7 @@ def show_term(stemmed_query,bow_query,bowlist):
     M = len(stemmed_query)
     N = len(new_bowlist)
 
+    '''
     key = [p for p in range(1,N)]
 
     for i in range (M):
@@ -141,12 +175,25 @@ def show_term(stemmed_query,bow_query,bowlist):
     print(termx.add_prefix('d'))
     print(termtable.add_prefix('d'))
     print()
-    print('With:')
+    '''
+    html = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+    """
     for i in range (N):
         if i == 0:
-            print('dQuery : ',new_fileslist[i])
+            html += "<p><left>dQuery : " + new_fileslist[i] + "</left></p>"
         else:
-            print('d'+str(i)+' : ',new_fileslist[i])
+            html += "<p><left>d" + str(i) + ' : ' + new_fileslist[i] + "</left></p>"
+    html += "</body></html>"
+    with open(os.path.join(current_path,'templates','list.html'),"w",encoding='utf-8') as write:
+        write.write(html)
 
 def get_term_table(stemmed_query,bow_query,bowlist): 
     term = []
