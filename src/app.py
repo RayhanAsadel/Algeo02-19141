@@ -11,14 +11,15 @@ ALLOWED_EXTENSIONS = {'txt'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['TEXT_DIR'] = './text'
-app.config['ALLOW_UPLOAD'] = False
 
 @app.route('/')
 @app.route('/search', methods=['GET'])
-def index():
-    return render_template('search.html')
 def search_page():
     query = request.args.get('s')
+
+    if not query:
+        return render_template('search.html')
+        
     unique = get_unique(stemmed_file,stemmed_query)
 
     stemmed_query = stemstring(query)
@@ -26,8 +27,7 @@ def search_page():
     bowlist = get_bow(stemmed_file,unique)
 
     sorted_result = get_result(bowlist,bow_query)
-
-    return render_template('results.html', sorted_result=sorted_result, stemmed_query=stemmed_query, bow_query=bow_query, bowlist=bowlist)
+    return render_template('results.html', query = query, sorted_result=sorted_result, stemmed_query=stemmed_query, bow_query=bow_query, bowlist=bowlist)
 
 @app.route('/upload', methods = ['GET'])
 def upload_page():
@@ -47,7 +47,7 @@ def about_files():
     return render_template('about.html')
 
 @app.route('/text/<txt_name>')
-def return_pdf(txt_name):
+def return_txt(txt_name):
     try:
         return redirect(url_for('static', filename=app.config['TEXT_DIR'] + secure_filename(txt_name)))
     except:
