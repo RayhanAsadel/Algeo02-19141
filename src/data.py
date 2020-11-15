@@ -95,25 +95,6 @@ def get_result(bowlist,bow_query):
     return(sorted_result)
 
 def show_result(sorted_result,query):
-    '''
-    printed = 0
-    for i in range (files_qty):
-        if sorted_result[i][1] != 0:
-            print (sorted_result[i][0])
-            file1 = open(text_dir+sorted_result[i][0],encoding='utf-8')
-            firstline = file1.readline()
-            line = file1.read()
-            words = word_tokenize(line)
-            print("Jumlah kata: {}".format(len(words)))
-            print("Tingkat Kemiripan: {:.2f} %".format(sorted_result[i][1]*100))
-            print(firstline)
-            printed += 1
-        else:
-            continue
-    if printed == 0:
-        print("Tidak ada dokumen yang sesuai dengan query.")
-        print()
-    '''
     printed = 0
     html = """
     <!DOCTYPE html>
@@ -125,7 +106,7 @@ def show_result(sorted_result,query):
     </head>
     <body>
     """
-    html += "<p><left><h3> Hasil pencarian " + query + " : </h3></left></p>"
+    html += "<left><h3> Result for <i>" + query + "</i> : </h3></left>"
     for i in range (files_qty):
         if sorted_result[i][1] != 0:
             html += "<p><left><a href=/static/text/" + sorted_result[i][0] + "> " + sorted_result[i][0] + " </a></left></p>"
@@ -137,6 +118,7 @@ def show_result(sorted_result,query):
             html += "<p><left>Jumlah kata: {}".format(len(words)) + "</left></p>"
             html += "\n<p><left>Tingkat Kemiripan: {:.2f} %".format(sorted_result[i][1]*100) + "</left></p>"
             html += "\n<p><left>" + firstline + "</left></p>"
+            html += "<br>"
             printed += 1
         else:
             continue
@@ -158,24 +140,6 @@ def show_term(stemmed_query,bow_query,bowlist):
     M = len(stemmed_query)
     N = len(new_bowlist)
 
-    '''
-    key = [p for p in range(1,N)]
-
-    for i in range (M):
-        term.append(dict.fromkeys(['Query'] + key,0))
-        for k in range(N):
-            for word in new_bowlist[k]:
-                if word == stemmed_query[i]:
-                    if k==0:
-                        term[i]['Query'] = new_bowlist[k][word]
-                    else:
-                        term[i][k] = new_bowlist[k][word]
-    termx = pd.DataFrame(term,index=stemmed_query)
-    termtable = termx
-    print(termx.add_prefix('d'))
-    print(termtable.add_prefix('d'))
-    print()
-    '''
     html = """
     <!DOCTYPE html>
     <html lang="en">
