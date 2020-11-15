@@ -12,22 +12,37 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['TEXT_DIR'] = './text'
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 @app.route('/search', methods=['GET'])
 def search_page():
-    query = request.args.get('s')
+    if request.method=='GET':
+        query = request.args.get('s')
 
     if not query:
         return render_template('search.html')
+    else:
+        stemmed_query = stemstring(query)
+
+        unique = get_unique(stemmed_file,stemmed_query)
+        bowlist = get_bow(stemmed_file,unique)
+        bow_query1 = bow_query(stemmed_query,unique)
+        sorted_result = get_result(bowlist,bow_query1)
+        files_qty1 = files_qty
+        #Dapatkan dataframe untuk termtable
+        termtable = pd.DataFrame()
+        termtable = get_term_table(stemmed_query,bow_query1,bowlist)
+        termtable.add_prefix('d')
+
+        #render dataframe as html
+        html = termtable.add_prefix('d').to_html()
+
+        #Mengwrite termtable ke html pada folder templates
+        path = os.getcwd()
+        with open(os.path.join(path,'templates','termtable.html'), "w") as file1:
+            file1.write(html)
+            file1.close()
         
-    unique = get_unique(stemmed_file,stemmed_query)
-
-    stemmed_query = stemstring(query)
-    bow_query = bow_query(stemmed_query,unique)
-    bowlist = get_bow(stemmed_file,unique)
-
-    sorted_result = get_result(bowlist,bow_query)
-    return render_template('results.html', query = query, sorted_result=sorted_result, stemmed_query=stemmed_query, bow_query=bow_query, bowlist=bowlist)
+        return render_template('results.html', query = query, sorted_result=sorted_result, stemmed_query=stemmed_query, bow_query=bow_query1, bowlist=bowlist, files_qty = files_qty1)
 
 @app.route('/upload', methods = ['GET'])
 def upload_page():
@@ -52,6 +67,9 @@ def return_txt(txt_name):
         return redirect(url_for('static', filename=app.config['TEXT_DIR'] + secure_filename(txt_name)))
     except:
         abort(404)
+@app.route('/table')
+def print_term_table():
+    return render_template('termtable.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
