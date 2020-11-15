@@ -18,6 +18,8 @@ global text_dir
 
 text_dir = 'static/text/'
 
+
+
 def stemstring(line):
     lowercase_line = line.lower()
     tanda_baca = '''`’”“—!()-[]{};:'"\, <>./?@#$%^&*_~'''
@@ -135,7 +137,9 @@ def show_term(stemmed_query,bow_query,bowlist):
                     else:
                         term[i][k] = new_bowlist[k][word]
     termx = pd.DataFrame(term,index=stemmed_query)
+    termtable = termx
     print(termx.add_prefix('d'))
+    print(termtable.add_prefix('d'))
     print()
     print('With:')
     for i in range (N):
@@ -143,6 +147,34 @@ def show_term(stemmed_query,bow_query,bowlist):
             print('dQuery : ',new_fileslist[i])
         else:
             print('d'+str(i)+' : ',new_fileslist[i])
+
+def get_term_table(stemmed_query,bow_query,bowlist): 
+    term = []
+    termtable = pd.DataFrame()
+
+    list_bowquery = []
+    list_bowquery.append(bow_query)
+
+    new_bowlist = list_bowquery + bowlist
+    new_fileslist = ['Query'] + fileslist
+
+    M = len(stemmed_query)
+    N = len(new_bowlist)
+
+    key = [p for p in range(1,N)]
+
+    for i in range (M):
+        term.append(dict.fromkeys(['Query'] + key,0))
+        for k in range(N):
+            for word in new_bowlist[k]:
+                if word == stemmed_query[i]:
+                    if k==0:
+                        term[i]['Query'] = new_bowlist[k][word]
+                    else:
+                        term[i][k] = new_bowlist[k][word]
+    termx = pd.DataFrame(term,index=stemmed_query)
+    termtable = termx
+    return termtable
 
 #fileslist
 current_path = os.getcwd()
