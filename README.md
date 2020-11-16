@@ -36,7 +36,7 @@ Pertama, pastikan terminal sudah terbuka pada folder src, jika sudah maka lakuka
 	* Then, enter the python shell in your terminal by simply typing python
 		* import nltk
 		* nltk.download(‘all’)
-jika sudah terinstall semua, maka bisa menjalankan app.py dengan command:
+* jika sudah terinstall semua, maka bisa menjalankan app.py dengan command:
 * python app.py
 
 
