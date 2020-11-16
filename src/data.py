@@ -1,12 +1,10 @@
 import io
-import collections
 import os
 import operator
 import pandas as pd
 from nltk.corpus import stopwords 
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
-from collections import Counter
 
 stop_words = set(stopwords.words('english'))
 ps = PorterStemmer()

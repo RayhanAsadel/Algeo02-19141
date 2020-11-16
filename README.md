@@ -13,13 +13,13 @@ mata kuliah Aljabar Linier dan Geometri IF2123, Semester 1 2020/2021.
 * [Contact](#contact)
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Example screenshot](./src/static/image/screenshot.png)
 
 ## Technologies
 * Bag of Word
 * Cosine Similarity
 * Web Scraping
-* Stemming dan Lemmatizing
+* Stemming
 
 ## Setup
 Describe how to install / setup your local environement / how to run app.py
@@ -30,6 +30,12 @@ Describe how to install / setup your local environement / how to run app.py
 	* pip install virtualenv
 * Install Flask
 	* pip install flask
+* Install nltk.corpus, nltk.tokenize, nltk.stem modules
+	* pip install nltk
+	* Then, enter the python shell in your terminal by simply typing python
+		* import nltk
+		* nltk.download(‘all’)
+
 ## Features
 List of features ready 
 * Upload Multiple or Single File txt
