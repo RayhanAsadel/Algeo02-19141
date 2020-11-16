@@ -22,7 +22,7 @@ mata kuliah Aljabar Linier dan Geometri IF2123, Semester 1 2020/2021.
 * Stemming dan Lemmatizing
 
 ## Setup
-Describe how to install / setup your local environement / add link to demo version.
+Describe how to install / setup your local environement / how to run app.py
 * install pip (if not already installed)
 	* https://phoenixnap.com/kb/install-pip-windows
 * if Pip already installed:
