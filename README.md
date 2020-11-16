@@ -23,13 +23,13 @@ mata kuliah Aljabar Linier dan Geometri IF2123, Semester 1 2020/2021.
 
 ## Setup
 Describe how to install / setup your local environement / add link to demo version.
-1.install pip (if not already installed)
-	https://phoenixnap.com/kb/install-pip-windows
-if Pip already installed:
--Install VirtualEnvironment
-	pip install virtualenv
--Install Flask
-	pip install flask
+* install pip (if not already installed)
+	*https://phoenixnap.com/kb/install-pip-windows
+*if Pip already installed:
+*Install VirtualEnvironment
+	*pip install virtualenv
+*Install Flask
+	*pip install flask
 ## Features
 List of features ready 
 * Upload Multiple or Single File txt
