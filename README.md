@@ -43,4 +43,3 @@ Project is:  _finished_
 ## Inspiration
 Projek ini terinspirasi dari spesifikasi Tugas Besar 2 Ajabar linier dan Geometri IF2123.
 
-## Contact
