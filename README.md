@@ -23,7 +23,7 @@ mata kuliah Aljabar Linier dan Geometri IF2123, Semester 1 2020/2021.
 
 ## Setup
 Describe how to install / setup your local environement / how to run app.py
-Pertama, pastikan terminal sudah terbuka pada folder src, jika sudah maka lakukan langkah-langkah berikut ini:
+* Pertama, pastikan terminal sudah terbuka pada folder src, jika sudah maka lakukan langkah-langkah berikut ini:
 * install pip (if not already installed)
 	* https://phoenixnap.com/kb/install-pip-windows
 * if Pip already installed:
