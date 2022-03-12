@@ -1,6 +1,6 @@
 # ASRAY Tech Simple Search Engine
 > Merupakan suatu implementasi sederhana dari konsep search engine,yang didalamnya menggunakan metode Bag of Words, Vektor, 
-dan cosine similarity untuk menemukan dokumen dengan relevansi tertinggi.Project ini merupakan bagian dari Tugas Besar 
+dan cosine similarity untuk menemukan dokumen dengan relevansi tertinggi. Project ini merupakan bagian dari Tugas Besar 
 mata kuliah Aljabar Linier dan Geometri IF2123, Semester 1 2020/2021.
 
 ## Table of contents
@@ -52,4 +52,9 @@ Project is:  _finished_
 
 ## Inspiration
 Projek ini terinspirasi dari spesifikasi Tugas Besar 2 Ajabar linier dan Geometri IF2123.
+
+## Authors
+Naufal Yahya Kurnianto 13519141
+Alif Bhadrika Parikesit 13519186
+Rayhan Asadel 13519196
 
