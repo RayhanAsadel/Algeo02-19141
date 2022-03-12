@@ -54,7 +54,7 @@ Project is:  _finished_
 Projek ini terinspirasi dari spesifikasi Tugas Besar 2 Ajabar linier dan Geometri IF2123.
 
 ## Authors
-Naufal Yahya Kurnianto 13519141
-Alif Bhadrika Parikesit 13519186
-Rayhan Asadel 13519196
+Naufal Yahya Kurnianto 13519141 <br>
+Alif Bhadrika Parikesit 13519186 <br>
+Rayhan Asadel 13519196 <br>
 
